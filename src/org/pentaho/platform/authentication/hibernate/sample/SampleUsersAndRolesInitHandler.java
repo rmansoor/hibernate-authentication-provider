@@ -58,7 +58,7 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
       boolean noUsers = userRoleDao.getUsers().isEmpty();
 
       if (noUsers) {
-        CustomRole adminRole = new CustomRole("Admin", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomRole adminRole = new CustomRole("Administrator", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole ceo = new CustomRole("ceo", "Chief Executive Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole cto = new CustomRole("cto", "Chief Technology Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole dev = new CustomRole("dev", "Developer"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -74,23 +74,23 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
 
         CustomUser admin = new CustomUser("admin", "c2VjcmV0", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         admin.addRole(adminRole);
-        CustomUser joe = new CustomUser("jim", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        joe.addRole(adminRole);
-        joe.addRole(ceo);
-        CustomUser pat = new CustomUser("john", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        pat.addRole(dev);
-        CustomUser suzy = new CustomUser("susan", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        suzy.addRole(cto);
-        suzy.addRole(is);
-        CustomUser tiffany = new CustomUser("sally", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        tiffany.addRole(dev);
-        tiffany.addRole(devMgr);
+        CustomUser jim = new CustomUser("jim", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        jim.addRole(adminRole);
+        jim.addRole(ceo);
+        CustomUser john = new CustomUser("john", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        john.addRole(dev);
+        CustomUser susan = new CustomUser("susan", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        susan.addRole(cto);
+        susan.addRole(is);
+        CustomUser sally = new CustomUser("sally", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        sally.addRole(dev);
+        sally.addRole(devMgr);
 
         userRoleDao.createUser(admin);
-        userRoleDao.createUser(joe);
-        userRoleDao.createUser(pat);
-        userRoleDao.createUser(suzy);
-        userRoleDao.createUser(tiffany);
+        userRoleDao.createUser(jim);
+        userRoleDao.createUser(john);
+        userRoleDao.createUser(susan);
+        userRoleDao.createUser(sally);
       }
     } catch (UncategorizedUserRoleDaoException e) {
       // log error and simply return
