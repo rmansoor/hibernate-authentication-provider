@@ -58,7 +58,7 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
       boolean noUsers = userRoleDao.getUsers().isEmpty();
 
       if (noUsers) {
-        CustomRole adminRole = new CustomRole("Administrator", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomRole adminRole = new CustomRole("Admin", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole ceo = new CustomRole("ceo", "Chief Executive Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole cto = new CustomRole("cto", "Chief Technology Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole dev = new CustomRole("dev", "Developer"); //$NON-NLS-1$ //$NON-NLS-2$
