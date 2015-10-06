@@ -17,6 +17,8 @@
 */
 package org.pentaho.platform.authentication.hibernate.sample;
 
+import org.pentaho.platform.authentication.hibernate.IRole;
+import org.pentaho.platform.authentication.hibernate.IUser;
 import org.pentaho.platform.authentication.hibernate.IUserRoleDao;
 import org.pentaho.platform.authentication.hibernate.CustomRole;
 import org.pentaho.platform.authentication.hibernate.CustomUser;
@@ -55,10 +57,13 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
   public void handleInit() {
 
     try {
-      boolean noUsers = userRoleDao.getUsers().isEmpty();
+      boolean databaseEmpty = userRoleDao.getUsers().isEmpty();
 
-      if (noUsers) {
-        CustomRole adminRole = new CustomRole("Administrator", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
+      if (!databaseEmpty) {
+    	  cleanup();
+      }
+        CustomRole adminRole = new CustomRole("Admin", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomRole administratorRole = new CustomRole("Administrator", "Administrative User"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole ceo = new CustomRole("ceo", "Chief Executive Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole cto = new CustomRole("cto", "Chief Technology Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole dev = new CustomRole("dev", "Developer"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -66,16 +71,17 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
         CustomRole is = new CustomRole("is", "Information Services"); //$NON-NLS-1$ //$NON-NLS-2$
 
         userRoleDao.createRole(adminRole);
+        userRoleDao.createRole(administratorRole);
         userRoleDao.createRole(ceo);
         userRoleDao.createRole(cto);
         userRoleDao.createRole(dev);
         userRoleDao.createRole(devMgr);
         userRoleDao.createRole(is);
 
-        CustomUser admin = new CustomUser("admin", "c2VjcmV0", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomUser admin = new CustomUser("joe", "c2VjcmV0", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         admin.addRole(adminRole);
         CustomUser jim = new CustomUser("jim", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        jim.addRole(adminRole);
+        jim.addRole(administratorRole);
         jim.addRole(ceo);
         CustomUser john = new CustomUser("john", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         john.addRole(dev);
@@ -91,7 +97,6 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
         userRoleDao.createUser(john);
         userRoleDao.createUser(susan);
         userRoleDao.createUser(sally);
-      }
     } catch (UncategorizedUserRoleDaoException e) {
       // log error and simply return
       logger.error(Messages.getInstance().getString("SampleUsersAndRolesInitHandler.ERROR_0001_COULD_NOT_INSERT_SAMPLES"), e); //$NON-NLS-1$
@@ -101,6 +106,15 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
 
   public void setUserRoleDao(final IUserRoleDao userRoleDao) {
     this.userRoleDao = userRoleDao;
+  }
+  
+  private void cleanup ( ) {
+	  for(IUser user:userRoleDao.getUsers()) {
+		  userRoleDao.deleteUser(user);
+	  }
+	  for(IRole role:userRoleDao.getRoles()) {
+		  userRoleDao.deleteRole(role);
+	  }
   }
 
 }
