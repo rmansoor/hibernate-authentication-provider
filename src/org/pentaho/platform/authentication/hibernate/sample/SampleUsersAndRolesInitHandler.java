@@ -62,8 +62,8 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
       if (!databaseEmpty) {
     	  cleanup();
       }
-        CustomRole adminRole = new CustomRole("Admin", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
-        CustomRole administratorRole = new CustomRole("Administrator", "Super User"); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomRole adminRole = new CustomRole("Admin", "Super"); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomRole administratorRole = new CustomRole("Administrator", "Admininstrator"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole ceo = new CustomRole("ceo", "Chief Executive Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole cto = new CustomRole("cto", "Chief Technology Officer"); //$NON-NLS-1$ //$NON-NLS-2$
         CustomRole dev = new CustomRole("dev", "Developer"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -78,7 +78,7 @@ public class SampleUsersAndRolesInitHandler extends HibernateDaoSupport implemen
         userRoleDao.createRole(devMgr);
         userRoleDao.createRole(is);
 
-        CustomUser admin = new CustomUser("joe", "c2VjcmV0", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        CustomUser admin = new CustomUser("joe", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         admin.addRole(adminRole);
         CustomUser jim = new CustomUser("jim", "cGFzc3dvcmQ=", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         jim.addRole(administratorRole);
